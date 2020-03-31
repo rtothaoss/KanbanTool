@@ -1,14 +1,15 @@
 package academy.learnprogramming.kanban.repositories;
 
 import academy.learnprogramming.kanban.domain.Project;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProjectRepository extends CrudRepository<Project, Long> {
 
+    Project findByProjectIdentifier(String projectId);
+
     @Override
-    default Iterable<Project> findAllById(Iterable<Long> iterable) {
-        return null;
-    }
+    Iterable<Project> findAll();
 }
