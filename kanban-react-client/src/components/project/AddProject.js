@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions'
 
 class AddProject extends Component {
 
@@ -8,6 +11,15 @@ class AddProject extends Component {
         description: "",
         start_date: "",
         end_date: "",
+        errors:{}
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.errors) {
+            this.setState({
+                errors: nextProps.errors
+            })
+        }
     }
 
     onChangeHandler = (e) => {
@@ -26,13 +38,18 @@ class AddProject extends Component {
             start_date: this.state.start_date,
             end_date: this.state.end_date
         }
-        console.log(newProject)
+        this.props.createProject(newProject, this.props.history)
     }
 
 
     render() {
+
+        const {errors} = this.state
+
+
         return (
             <div className="register">
+               
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
@@ -49,6 +66,7 @@ class AddProject extends Component {
                                         onChange={this.onChangeHandler}
                                     />
                                 </div>
+                                <p style={{color: 'red', margin: '0 auto'}}>{errors.projectName}</p>
                                 <div className="form-group">
                                     <input
                                         type="text"
@@ -59,6 +77,7 @@ class AddProject extends Component {
                                         onChange={this.onChangeHandler}
                                     />
                                 </div>
+                                <p style={{color: 'red', margin: '0 auto'}}>{errors.projectIdentifier}</p>
 
                                 <div className="form-group">
                                     <textarea
@@ -69,8 +88,10 @@ class AddProject extends Component {
                                         onChange={this.onChangeHandler}
                                     />
                                 </div>
+                                <p style={{color: 'red', margin: '0 auto'}}>{errors.description}</p>
                                 <h6>Start Date</h6>
                                 <div className="form-group">
+                                {/* <p style={{color: 'red'}}>{errors.start_date}</p> */}
                                     <input
                                         type="date"
                                         className="form-control form-control-lg"
@@ -81,6 +102,7 @@ class AddProject extends Component {
                                 </div>
                                 <h6>Estimated End Date</h6>
                                 <div className="form-group">
+                                {/* <p style={{color: 'red'}}>{errors.end_date}</p> */}
                                     <input
                                         type="date"
                                         className="form-control form-control-lg"
@@ -103,4 +125,21 @@ class AddProject extends Component {
     }
 }
 
-export default AddProject;
+const mapStateToProps = state => {
+    return {
+        errors: state.errors.errors
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        createProject: (project, history) => dispatch(actions.createProject(project, history))
+    }
+}
+
+AddProject.propTypes = {
+    createProject: PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddProject);
