@@ -7,12 +7,14 @@ import { createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import errorReducer from './store/reducers/errorReducer'
+import projectReducer from './store/reducers/projectReducer'
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-  errors: errorReducer
+  errors: errorReducer,
+  project: projectReducer
 })
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
