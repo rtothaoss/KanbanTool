@@ -20,8 +20,8 @@ class Dashboard extends Component {
             projectItems = this.props.project.map(item => (
                 <ProjectItem 
                     key={item.projectIdentifier}
-                    title={item.projectIdentifier}
-                    name={item.projectName}
+                    projectIdentifier={item.projectIdentifier}
+                    projectName={item.projectName}
                     description={item.description}
                     
                 />
@@ -61,7 +61,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 Dashboard.propTypes = {
-    project: PropTypes.object.isRequired,
+    projects: PropTypes.object.isRequired,
     getProjects: PropTypes.func.isRequired
 }
 

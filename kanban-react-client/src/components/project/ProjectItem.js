@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions';
 
 class ProjectItem extends Component {
+
+    onDeleteHandler = (id) => {
+        this.props.deleteProject(id)
+    }
+
+
     render() {
 
         
@@ -10,10 +20,10 @@ class ProjectItem extends Component {
             <div className="card card-body bg-light mb-3">
                 <div className="row">
                     <div className="col-2">
-                        <span className="mx-auto">{this.props.title}</span>
+                        <span className="mx-auto">{this.props.projectIdentifier}</span>
                     </div>
                     <div className="col-lg-6 col-md-4 col-8">
-                        <h3>{this.props.name}</h3>
+                        <h3>{this.props.projectName}</h3>
                         <p>{this.props.description}</p>
                     </div>
                     <div className="col-md-4 d-none d-lg-block">
@@ -23,13 +33,16 @@ class ProjectItem extends Component {
                                     <i className="fa fa-flag-checkered pr-1">Project Board </i>
                                 </li>
                             </a>
-                            <a href="#">
+                            <Link to={`/updateProject/${this.props.projectIdentifier}`}>
                                 <li className="list-group-item update">
                                     <i className="fa fa-edit pr-1">Update Project Info</i>
                                 </li>
-                            </a>
+                            </Link>
                             <a href="">
-                                <li className="list-group-item delete">
+                                <li 
+                                    className="list-group-item delete"
+                                    onClick={() => this.onDeleteHandler(this.props.projectIdentifier)}
+                                >
                                     <i className="fa fa-minus-circle pr-1">Delete Project</i>
                                 </li>
                             </a>
@@ -42,4 +55,14 @@ class ProjectItem extends Component {
     }
 }
 
-export default ProjectItem;
+ProjectItem.propTypes = {
+    deleteProject: PropTypes.func.isRequired
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        deleteProject: (id) => dispatch(actions.deleteProject(id))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ProjectItem);

@@ -12,6 +12,21 @@ const reducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 projects: action.payload
             }
+        case actionTypes.GET_PROJECT:
+            return {
+                ...state,
+                project: action.payload
+            }
+        case actionTypes.UPDATE_PROJECT:
+            return {
+                ...state,
+                project: action.payload
+            }
+        case actionTypes.DELETE_PROJECT:
+            return {
+                ...state,
+                projects: state.projects.filter(project => project.projectIdentifier !== action.payload)
+            }
         default:
             return state
     }
