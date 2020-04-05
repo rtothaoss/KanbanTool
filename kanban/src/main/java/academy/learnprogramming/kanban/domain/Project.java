@@ -40,6 +40,9 @@ public class Project {
     @JsonFormat(pattern = "yyyy-mm-dd")
     @Getter @Setter private Date updated_At;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
+    @Getter @Setter private Backlog backlog;
+
     public Project() {
     }
 

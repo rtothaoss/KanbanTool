@@ -1,8 +1,10 @@
 package academy.learnprogramming.kanban.services;
 
+import academy.learnprogramming.kanban.domain.Backlog;
 import academy.learnprogramming.kanban.domain.Project;
 
 import academy.learnprogramming.kanban.exceptions.ProjectIdException;
+import academy.learnprogramming.kanban.repositories.BacklogRepository;
 import academy.learnprogramming.kanban.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +16,27 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
+    @Autowired
+    private BacklogRepository backlogRepository;
+
     public Project saveOrUpdateProject(Project project){
+
+        String projectId = project.getProjectIdentifier().toUpperCase();
+
         try{
-            project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+            project.setProjectIdentifier(projectId);
+
+            if(project.getId() == null) {
+                Backlog backlog = new Backlog();
+                project.setBacklog(backlog);
+                backlog.setProject(project);
+                backlog.setProjectIdentifier(projectId);
+            }
+
+            if(project.getId() != null) {
+                project.setBacklog(backlogRepository.findByProjectIdentifier(projectId));
+            }
+
             return projectRepository.save(project);
         }catch (Exception e){
             throw new ProjectIdException("Project ID '"+project.getProjectIdentifier().toUpperCase()+"' already exists");

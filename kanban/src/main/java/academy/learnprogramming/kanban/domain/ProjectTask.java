@@ -1,5 +1,6 @@
 package academy.learnprogramming.kanban.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,6 +28,12 @@ public class ProjectTask {
     @Getter @Setter private String projectIdentifier;
     @Getter @Setter private Date created_At;
     @Getter @Setter private Date updated_At;
+
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "backlog_id", updatable = false, nullable = false)
+    @JsonIgnore
+    @Getter @Setter private Backlog backlog;
 
     public ProjectTask() {
     }
