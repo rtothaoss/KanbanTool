@@ -1,6 +1,7 @@
 package academy.learnprogramming.kanban.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,6 +42,7 @@ public class Project {
     @Getter @Setter private Date updated_At;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
+    @JsonIgnore
     @Getter @Setter private Backlog backlog;
 
     public Project() {
