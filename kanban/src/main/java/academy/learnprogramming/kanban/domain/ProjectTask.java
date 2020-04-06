@@ -16,7 +16,7 @@ public class ProjectTask {
     @Getter
     @Setter
     private Long id;
-    @Column(updatable = false)
+    @Column(updatable = false, unique = true)
     @Getter @Setter private String projectSequence;
     @NotBlank(message = "Please include a project summary")
     @Getter @Setter private String summary;
