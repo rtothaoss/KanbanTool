@@ -8,6 +8,7 @@ import AddProject from './components/project/AddProject';
 import UpdateProject from './components/project/UpdateProject';
 import ProjectBoard from './components/projectBoard/ProjectBoard'
 import AddProjectTask from './components/projectBoard/projectTasks/AddProjectTask'
+import UpdateProjectTask from './components/projectBoard/projectTasks/UpdateProjectTask'
 import noMatch from './components/project/noMatch';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route exact path='/updateProject/:id' component={UpdateProject} />
         <Route exact path='/projectBoard/:id' component={ProjectBoard} />
         <Route exact path='/addProjectTask/:id' component={AddProjectTask} />
+        <Route exact path='/updateProjectTask/:backlog_id/:pt_id' component={UpdateProjectTask} />
       </div>
     </Router>
   );
