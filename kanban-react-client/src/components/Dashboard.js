@@ -61,7 +61,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 Dashboard.propTypes = {
-    projects: PropTypes.object.isRequired,
+    project: PropTypes.array.isRequired,
     getProjects: PropTypes.func.isRequired
 }
 
