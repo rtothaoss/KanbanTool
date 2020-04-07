@@ -91,7 +91,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 ProjectBoard.propTypes = {
-    backlog: PropTypes.object.isRequired,
+    backlog: PropTypes.array.isRequired,
     getBacklog: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired
   };

@@ -19,7 +19,10 @@ const reducer = (state = INITIAL_STATE, action) => {
             }
         case actionTypes.DELETE_PROJECT_TASK:
             return {
-                ...state
+                ...state,
+                project_tasks: state.project_tasks.filter(
+                  project_task => project_task.projectSequence !== action.payload
+                )
             }
         default:
             return state

@@ -3,38 +3,137 @@ import { connect } from "react-redux";
 import classnames from "classnames";
 import * as actions from '../../../store/actions'
 import PropTypes from "prop-types";
+import { Link } from 'react-router-dom'
 
 class UpdateProjectTask extends Component {
+
+  state = {
+    id: "",
+    projectSequence: "",
+    summary: "",
+    acceptanceCriteria: "",
+    status: "",
+    priority: "",
+    dueDate: "",
+    projectIdentifier: "",
+    create_At: "",
+    errors: {}
+  };
+
   componentDidMount() {
     const { backlog_id, pt_id } = this.props.match.params;
     this.props.getProjectTask(backlog_id, pt_id, this.props.history);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+
+    const {
+      id,
+      projectSequence,
+      summary,
+      acceptanceCriteria,
+      status,
+      priority,
+      dueDate,
+      projectIdentifier,
+      create_At
+    } = nextProps.project_task;
+
+    this.setState({
+      id,
+      projectSequence,
+      summary,
+      acceptanceCriteria,
+      status,
+      priority,
+      dueDate,
+      projectIdentifier,
+      create_At
+    });
+  }
+
+  onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    this.setState({
+        [name]: value
+    })
+}
+
+onSubmitHandler = (e) => {
+  e.preventDefault();
+
+  const UpdateProjectTask = {
+    id: this.state.id,
+    projectSequence: this.state.projectSequence,
+    summary: this.state.summary,
+    acceptanceCriteria: this.state.acceptanceCriteria,
+    status: this.state.status,
+    priority: this.state.priority,
+    dueDate: this.state.dueDate,
+    projectIdentifier: this.state.projectIdentifier,
+    create_At: this.state.create_At
+  };
+
+  this.props.updateProjectTask(
+    this.state.projectIdentifier,
+    this.state.projectSequence,
+    UpdateProjectTask,
+    this.props.history
+  )
+}
+
+
+
+
   render() {
+
+
+    const { errors } = this.state
+
+
     return (
       <div className="add-PBI">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <a href="#" className="btn btn-light">
+            <Link
+                to={`/projectBoard/${this.state.projectIdentifier}`}
+                className="btn btn-light"
+              >
                 Back to Project Board
-              </a>
+            
+              </Link>
               <h4 className="display-4 text-center">Update Project Task</h4>
-              <p className="lead text-center">Project Name + Project Code</p>
-              <form>
+              <p className="lead text-center">
+                Project Name: {this.state.projectIdentifier} | Project Task ID:{" "}
+                {this.state.projectSequence}{" "}
+              </p>
+              <form onSubmit={this.onSubmitHandler}>
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control form-control-lg"
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": errors.summary
+                    })}
                     name="summary"
                     placeholder="Project Task summary"
+                    value={this.state.summary}
+                    onChange={this.onChangeHandler}
                   />
+                    {errors.summary && (
+                    <div className="invalid-feedback">{errors.summary}</div>
+                  )}
                 </div>
                 <div className="form-group">
                   <textarea
                     className="form-control form-control-lg"
                     placeholder="Acceptance Criteria"
                     name="acceptanceCriteria"
+                    value={this.state.acceptanceCriteria}
+                    onChange={this.onChangeHandler}
                   />
                 </div>
                 <h6>Due Date</h6>
@@ -43,12 +142,16 @@ class UpdateProjectTask extends Component {
                     type="date"
                     className="form-control form-control-lg"
                     name="dueDate"
+                    value={this.state.dueDate}
+                    onChange={this.onChangeHandler}
                   />
                 </div>
                 <div className="form-group">
                   <select
                     className="form-control form-control-lg"
                     name="priority"
+                    value={this.state.priority}
+                    onChange={this.onChangeHandler}
                   >
                     <option value={0}>Select Priority</option>
                     <option value={1}>High</option>
@@ -61,6 +164,8 @@ class UpdateProjectTask extends Component {
                   <select
                     className="form-control form-control-lg"
                     name="status"
+                    value={this.state.status}
+                    onChange={this.onChangeHandler}
                   >
                     <option value="">Select Status</option>
                     <option value="TO_DO">TO DO</option>
@@ -86,20 +191,23 @@ class UpdateProjectTask extends Component {
 
 const mapStateToProps = state => {
     return {
-        project_task: state.backlog.project_task
+        project_task: state.backlog.project_task,
+        errors: state.errors.errors
     }
   
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        getProjectTask: (backlog_id, pt_id, history) => dispatch(actions.getProjectTask(backlog_id, pt_id, history))
+        getProjectTask: (backlog_id, pt_id, history) => dispatch(actions.getProjectTask(backlog_id, pt_id, history)),
+        updateProjectTask: (backlog_id, pt_id, project_task, history) => dispatch(actions.updateProjectTask(backlog_id, pt_id, project_task, history))
     }
 }
 
 UpdateProjectTask.propTypes = {
     getProjectTask: PropTypes.func.isRequired,
-    project_task: PropTypes.object.isRequired
+    project_task: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
   };
 
 export default connect(mapStateToProps,mapDispatchToProps)(UpdateProjectTask);
