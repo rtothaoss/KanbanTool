@@ -16,23 +16,26 @@ Paste this line of code into your terminal.
 
 #### MySQL Section
 
+Create a schema in MySQL. You may name it whatever you wish just be sure change the name in the application.properties in Spring Boot.
+
 
 
 #### Spring Boot Section
 
+Once the MySQL schema has been created make sure it matches in application.properties. Be sure to include the timezone otherwise the database connection will not work. Down below an example is listed. After setting up everything in application.properties start the server by running KanbanApplication.java
 
-
+`` spring.datasource.url = jdbc:mysql://localhost:3306/kanbanTool?serverTimezone=UTC ``
 
 
 #### Install Dependencies in React
-Install all the necessary packages for the app to run correctly.
+Open the React section and Install all the necessary packages for the app to run correctly.
 
 `` npm install ``
 
 #### Usage 
 Start up the app by using this command.
 
-`` expo start ``
+`` npm start ``
 
 ### Technologies Used:
 * Java
@@ -41,5 +44,7 @@ Start up the app by using this command.
 * React-Redux
 * Redux-Thunk
 * MySQL
-* Expo
+* Gson
+* Lombok
+* Bootstrap
 
