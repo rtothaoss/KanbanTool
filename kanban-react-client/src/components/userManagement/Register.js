@@ -14,6 +14,12 @@ class Register extends Component {
     errors: {}
   }
 
+  componentDidMount() {
+    if(this.props.security.validToken) {
+      this.props.history.push('/dashboard')
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if(nextProps.errors) {
       this.setState({errors: nextProps.errors})
@@ -125,7 +131,8 @@ onSubmitHandler = (e) => {
 
 const mapStateToProps = state => {
   return {
-    errors: state.errors.errors
+    errors: state.errors.errors,
+    security: state.security
   }
 }
 
