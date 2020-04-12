@@ -1,5 +1,6 @@
 package academy.learnprogramming.kanban.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,10 +24,13 @@ public class ProjectTask {
     @Getter @Setter private String acceptanceCriteria;
     @Getter @Setter private String status;
     @Getter @Setter private Integer priority;
+    @JsonFormat(pattern = "yyyy-mm-dd")
     @Getter @Setter private Date dueDate;
     @Column(updatable = false)
     @Getter @Setter private String projectIdentifier;
+    @JsonFormat(pattern = "yyyy-mm-dd")
     @Getter @Setter private Date created_At;
+    @JsonFormat(pattern = "yyyy-mm-dd")
     @Getter @Setter private Date updated_At;
 
 
