@@ -34,10 +34,20 @@ export const login = LoginRequest => {
                 payload: decoded
             })
         } catch(err) {
+            console.log(err)
             dispatch({
                 type:actionTypes.GET_ERRORS,
-                payload: err.reponse.data
+                payload: err.response.data
             })
         }
     }
 }
+
+export const logout = () => dispatch => {
+    localStorage.removeItem("jwtToken");
+    setJWTToken(false);
+    dispatch({
+      type: actionTypes.SET_CURRENT_USER,
+      payload: {}
+    });
+  };
