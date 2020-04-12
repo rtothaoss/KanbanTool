@@ -9,6 +9,7 @@ import { Provider } from 'react-redux'
 import errorReducer from './store/reducers/errorReducer'
 import projectReducer from './store/reducers/projectReducer'
 import backlogReducer from './store/reducers/backlogReducer'
+import securityReducer from './store/reducers/securityReducer'
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -16,7 +17,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
   errors: errorReducer,
   project: projectReducer,
-  backlog: backlogReducer
+  backlog: backlogReducer,
+  security: securityReducer
 })
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
