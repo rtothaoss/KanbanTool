@@ -1,7 +1,7 @@
 # KanbanTool
 *Spring Boot/React App that allows the organization of projects in a group setting.*
 
-<!--![alt text](https://media.giphy.com/media/U6k41BdMeH83hH7y5H/giphy.gif 'Picutre App in Action')-->
+![alt text](https://media.giphy.com/media/YnqrOIwolrod6LC8ga/giphy.gif 'Kanban Tool in Action')
 
 Users can login and view projects they are currently working on. When viewing the projects they can see tasks organized into three columns. Those columns are to-do, in-progress, and done. Each task can have a priority level of either low, medium, or high. This is a kanban implementation but can but built out to handle other tasks.
 
