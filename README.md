@@ -6,7 +6,14 @@
 
 Users can login and view projects they are currently working on. When viewing the projects they can see tasks organized into three columns. Those columns are to-do, in-progress, and done. Each task can have a priority level of either low, medium, or high. This is a kanban implementation but can but built out to handle other tasks.
 
-Deployed Page: (Will be deployed soon)
+Deployed Page: [here](https://lit-savannah-36170.herokuapp.com/)
+
+Test Login Information:
+
+Email Address: test@test.com
+Password: password
+
+You can also create your own account if you feel like doing so.
 
 ### Follow these steps to use the app:
 
